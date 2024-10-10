@@ -7,7 +7,7 @@ from .serializers import ProjectSerializer, EventSerializer, TaskSerializer
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.prefetch_related('members__profile')
     serializer_class = ProjectSerializer
 
 

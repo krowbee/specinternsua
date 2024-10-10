@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-PROJECT_STATUS = (("Active", "Active"),
-                  ("Not started", "Not started"),
-                  ("Finished", "Finished"))
+PROJECT_STATUS = (("Active", "В розробці"),
+                  ("Not started", "Не розпочато"),
+                  ("Finished", "Завершено"))
 
 STATUSES = (("In progress", "In progress"),
             ("Completed", "Completed"))
@@ -36,7 +36,7 @@ class Project(models.Model):
 
 class Profile(models.Model):
     full_name = models.CharField(max_length=128, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     linkedin = models.URLField("LinkedIn", blank=True, null=True)
     specialization = models.CharField("Спеціалізація", max_length=25, null=True, choices=(
                                                               ("FRONT-END", "Front-End"),
@@ -45,7 +45,7 @@ class Profile(models.Model):
                                                               ('DESIGNER', 'Designer'),
                                                               ('DATA SCRAPER', 'Data Scraper')))
     discord_id = models.CharField(blank=True, null=True, max_length=100)
-    projects = models.ManyToManyField(Project, null=True)
+    projects = models.ManyToManyField(Project, null=True, blank=True)
 
 
 # Модель сертифікату

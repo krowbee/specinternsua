@@ -3,10 +3,19 @@ from crm.models import Event, Project, Profile, Task
 from django.contrib.auth.models import User
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ['full_name', 'linkedin', 'specialization', 'discord_id',]
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'profile']
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -17,15 +26,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ['id', 'title', 'description', 'members', 'start_date',
                   'duration_in_weeks', 'project_link', 'preview', 'status', 'task_asignee']
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    projects = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
-
-    class Meta:
-        model = Profile
-        fields = ['full_name', 'user', 'linkedin', 'specialization', 'discord_id', 'projects']
 
 
 class TaskSerializer(serializers.ModelSerializer):

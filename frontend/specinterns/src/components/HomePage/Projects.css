@@ -1,0 +1,30 @@
+
+div.project{
+    height: 500px;
+    width:400px;
+    background-image: url('https://i.imgur.com/u38PtKa.jpeg');
+    color: white;
+    margin: 10px;
+}
+
+div.status-block{
+    margin:10px;
+}
+
+
+.project-card {
+  background-color: rgba(22, 19, 16, 0.7); /* Черно-коричневый цвет с прозрачностью */
+  transition: background-color 0.3s ease; /* Плавный переход */
+}
+
+
+h4{
+    font-size: 26px;
+    cursor: default;
+    font-weight: 650;
+}
+
+h2{
+  font-size: 36px;
+  cursor: default;
+}

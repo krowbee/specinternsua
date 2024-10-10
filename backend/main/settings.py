@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,13 +38,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
+    "djoser",
     "rest_framework",
+    'rest_framework_simplejwt.token_blacklist',
     "authorization",
     "crm",
     "website",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -125,3 +130,21 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+CORS_ALLOW_CREDENTIALS = True
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Время жизни access-токена
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),  # Время жизни refresh-токена
+    'ROTATE_REFRESH_TOKENS': False,  # Если True, refresh-токен обновляется при каждом запросе
+    'BLACKLIST_AFTER_ROTATION': True,  # Заносить в черный список использованные refresh-токены
+    'AUTH_COOKIE_SECURE': False,  # Передавать токен только через HTTPS
+    'AUTH_COOKIE_HTTPONLY': True,  # Защита от доступа через JS
+}
+
