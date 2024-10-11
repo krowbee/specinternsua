@@ -8,7 +8,7 @@ import ProjectsList from "../components/HomePage/ProjectsList";
 import TakePart from "../components/HomePage/TakePart";
 import HeaderMobile from "../components/HeaderMobile";
 import { useState, useEffect } from "react";
-import About from "../components/HomePage/About";
+import HowTakePart from "../components/HomePage/HowTakePart";
 
 const HomePage = () => {
     const { store } = useContext(Context);
@@ -17,7 +17,7 @@ const HomePage = () => {
 
     useEffect(()=>{
         const handleResize = () =>{
-            setIsMobile(window.innerWidth < 850 );
+            setIsMobile(window.innerWidth <= 870 );
         }
         
         handleResize();
@@ -32,9 +32,9 @@ const HomePage = () => {
     return(
         <div>
             {isMobile ? (<HeaderMobile></HeaderMobile>) : (<Header></Header>) }
-            <Slides></Slides>
+            <Slides isMobile={isMobile}></Slides>
             <ProjectsList></ProjectsList>
-            <About></About>
+            <HowTakePart/>
             <TakePart></TakePart>
             <Footer></Footer>
         </div>

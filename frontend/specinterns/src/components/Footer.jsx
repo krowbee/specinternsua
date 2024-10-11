@@ -1,9 +1,9 @@
 import './Footer.css';  // Импортируем стили
 import logo from '../assets/logo.jpg';  // Твой логотип
-
+import { ScrollToElementById } from '../utils/ScrollUtils';
 const Footer = () => {
     return (
-        <footer className="footer">
+        <footer className="footer" id='footer'>
             <div className="footer-container">
                 <div className="footer-logo-section">
                     <img src={logo} alt="Logo" className="footer-logo" />
@@ -11,10 +11,9 @@ const Footer = () => {
                 </div>
                 <div className="footer-nav-section">
                     <ul>
-                        <li><a href="/">Головна</a></li>
-                        <li><a href="/about">Про нас</a></li>
-                        <li><a href="/projects">Проекти</a></li>
-                        <li><a href="/contacts">Контакти</a></li>
+                        <li><a className="xl:m-[30px] md:text-[26px]  m-[5px] nav-link cursor-pointer" onClick={()=> ScrollToElementById('project-list')}>Проєкти</a></li>
+                        <li><a className="xl:m-[30px]  md:text-[26px] m-[5px]  nav-link cursor-pointer" onClick={()=> ScrollToElementById('about-us')}>Про нас</a></li>
+                        <li><a className="xl:m-[30px]  md:text-[26px] m-[5px]  nav-link cursor-pointer" onClick={()=> ScrollToElementById('take-part')}>Взяти участь</a></li>
                     </ul>
                 </div>
                 <div className="footer-social-section">

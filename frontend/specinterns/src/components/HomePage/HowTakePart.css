@@ -1,0 +1,59 @@
+.card-stack {
+  position: relative;
+  width: 100%;
+  height: 100%; /* Ограничение ширины контейнера */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+  justify-content: center;
+}
+
+/* Стили для карточек */
+.card {
+  width: 95%; /* Широкие карточки */
+  max-width: 1200px;
+  height: 100%; /* Высота карточки */
+  background-color: #e6e7e9;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Глубокая тень */
+  border-radius: 20px; /* Закругленные углы */
+  margin-bottom: 50px; /* Пространство между карточками */
+  padding: 10px;
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  transition: none; /* Отключаем переход по умолчанию */
+}
+
+div.text-container{
+  width: 95%;
+}
+
+/* Медиазапрос для экранов шире 860 пикселей */
+@media (min-width: 860px) {
+  .card {
+      height: 400px;
+      padding: 30px;
+      position: sticky;
+      top: 120px; /* Точка "залипания" при скролле */
+      transform: translateY(-50px); /* Эффект наложения */
+      transition: transform 0.4s ease, box-shadow 0.3s ease; /* Переходы для анимации */
+  }
+
+  /* Индивидуальные настройки для каждой карточки */
+  .card:nth-child(2) { top: 120px; }
+  .card:nth-child(3) { top: 120px; }
+  .card:nth-child(4) { top: 120px; }
+
+  div.text-container{
+    width: 75%;
+  }
+}
+
+.card p svg {
+  min-width: 30px !important;
+  min-height: 30px !important;
+}

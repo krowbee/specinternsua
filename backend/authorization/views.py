@@ -32,8 +32,8 @@ class RegisterView(APIView):
                 key='refreshToken',
                 value=refresh_token,
                 httponly=True,
-                secure=True,
-                samesite='None',
+                secure=False,
+                samesite='Lax',
                 max_age=timedelta(days=30)  
             )
 
@@ -57,8 +57,8 @@ class LoginView(APIView):
                 key='refreshToken',
                 value=refresh_token,
                 httponly=True,
-                secure=True,
-                samesite='None',
+                secure=False,
+                samesite='Lax',
                 max_age=timedelta(days=30)  
             )
             return response

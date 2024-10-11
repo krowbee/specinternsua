@@ -9,7 +9,7 @@ import { PrevArrow, NextArrow } from "../../ui/SliderButtons";
 
 
 
-const Slides = () => {
+const Slides = ({isMobile}) => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const totalSlides = 3;
@@ -17,18 +17,19 @@ const Slides = () => {
     const settings = {
         dots: false,
         infinite: false,
-        draggable:false,
-        speed: 500,
+        draggable:true,
+        speed: 400,
+        cssEase:'ease-in-out',
         slidesToShow: 1,
         slidesToScroll: 1,
         beforeChange: (current, next) => setCurrentSlide(next),
-        prevArrow: <PrevArrow isVisible={currentSlide > 0} />,
-        nextArrow: <NextArrow isVisible={currentSlide < totalSlides - 1} />,
+        prevArrow: isMobile ? null :  <PrevArrow isVisible={currentSlide > 0} />,
+        nextArrow: isMobile ? null :  <NextArrow isVisible={currentSlide < totalSlides - 1} />,
         ref: sliderRef
     };
 
     return (
-        <div className="slider-container relative overflow-visible" id="about-us">
+        <div className="slider-container relative overflow-visible bg-[#414143]" id="about-us">
             <Slider {...settings}>
                 <div className="slide slide-1 flex justify-center items-center text-center">
                     <div className="text-block flex flex-col justify-center items-center">
@@ -56,7 +57,7 @@ const Slides = () => {
                     sliderRef.current.slickGoTo(index)
                 }}>
                 </CustomDots>
-                <button className="take-part-button transition ease-in bg-black text-[#f77031] hover:bg-[#f77031] hover:text-white font-bold hover:font-bold m-[40px] w-[390px] h-[65px] border border-2 border-[#f77031] rounded-[0.3rem] uppercase ">Взяти участь</button>
+                <a href='https://forms.gle/Hv2VihPrnNYKPfWQ9'><button className="take-part-button transition ease-in bg-black text-[#f77031] hover:bg-[#f77031] hover:text-white font-bold hover:font-bold m-[10px] w-[160px] h-[65px]  md:w-[390px] h-[65px] border border-2 border-[#f77031] rounded-[0.3rem] uppercase ">Взяти участь</button></a>
             </div>
         </div>
     )

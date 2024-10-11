@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -133,9 +134,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+CORS_ALLOW_ALL_ORIGINS = True
+
+ALLOWED_HOSTS = [
+    '*'
 ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 
@@ -147,4 +151,6 @@ SIMPLE_JWT = {
     'AUTH_COOKIE_SECURE': False,  # Передавать токен только через HTTPS
     'AUTH_COOKIE_HTTPONLY': True,  # Защита от доступа через JS
 }
+
+GRAPPELLI_ADMIN_TITLE = "Панель адміністратора"
 

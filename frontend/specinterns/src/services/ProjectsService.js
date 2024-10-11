@@ -5,7 +5,6 @@ export default class ProjectsService{
     static async getAllProjects(){
         const response = await $api.get('/crm/projects/')
         const projects = response.data
-        console.log(response.data)
 
         const projectsList = projects.map(project => {
             const membersInfo = project.members.map(member => {
