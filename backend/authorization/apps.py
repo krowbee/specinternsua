@@ -5,6 +5,5 @@ class AuthConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "authorization"
 
-    # гарантія використовування сигналів
     def ready(self):
         import authorization.signals

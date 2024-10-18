@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "djoser",
     "rest_framework",
+    'rest_framework_roles',
+    'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     "authorization",
     "crm",
@@ -140,17 +142,34 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+
 CORS_ALLOW_CREDENTIALS = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+REST_FRAMEWORK_ROLES = {
+    'ROLES': 'roles.ROLES',
+    'SKIP_MODULES': [
+        'django.*',
+        'website.*',
+        'authorization.*'
+    ]
+}
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Время жизни access-токена
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),  # Время жизни refresh-токена
-    'ROTATE_REFRESH_TOKENS': False,  # Если True, refresh-токен обновляется при каждом запросе
-    'BLACKLIST_AFTER_ROTATION': True,  # Заносить в черный список использованные refresh-токены
-    'AUTH_COOKIE_SECURE': False,  # Передавать токен только через HTTPS
-    'AUTH_COOKIE_HTTPONLY': True,  # Защита от доступа через JS
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_COOKIE_SECURE': False,
+    'AUTH_COOKIE_HTTPONLY': True
+
 }
 
 GRAPPELLI_ADMIN_TITLE = "Панель адміністратора"
-

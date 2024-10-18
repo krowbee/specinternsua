@@ -3,13 +3,13 @@ import logo from '../assets/logo.jpg'
 import { ScrollToElementById } from '../utils/ScrollUtils';
 import { useEffect } from 'react';
 import { Context } from '..';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 const HeaderMobile = () => {
     const { store } = useContext(Context)
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-
+    const location = useLocation();
     const scrollToElement = (id)=>{
         toggleMenu();
         ScrollToElementById(id);
@@ -35,7 +35,8 @@ const HeaderMobile = () => {
                     </svg>
                 </button>)}
             </div>
-            {isOpenMenu && (<nav className="nav flex absolute z-10 w-full flex-col bg-[#414143] border-t border-[#f77031] items-center justify-center" style={{ top: '100%' }}>
+
+            {location.pathname == '/' &&  isOpenMenu && (<nav className="nav flex absolute z-10 w-full flex-col bg-[#414143] border-t border-[#f77031] items-center justify-center" style={{ top: '100%' }}>
                 <a className="xl:m-[30px] md:text-[26px]  m-[5px] nav-link cursor-pointer" onClick={() => scrollToElement('project-list')}>Проєкти</a>
                 <a className="xl:m-[30px]  md:text-[26px] m-[5px]  nav-link cursor-pointer" onClick={() => scrollToElement('about-us')}>Про нас</a>
                 <a className="xl:m-[30px]  md:text-[26px] m-[5px]  nav-link cursor-pointer" onClick={() => scrollToElement('take-part')}>Взяти участь</a>

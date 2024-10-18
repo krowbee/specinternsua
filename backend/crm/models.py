@@ -17,7 +17,6 @@ EVENT_TYPES = (("Meeting", "Зустріч"),
                ("Progress Update", "Оновлення прогресу"))
 
 
-# Модель проєкту
 class Project(models.Model):
     title = models.CharField("Назва проєкту", max_length=256)
     description = models.TextField("Опис")
@@ -45,17 +44,17 @@ class Profile(models.Model):
                                                               ('DESIGNER', 'Designer'),
                                                               ('DATA SCRAPER', 'Data Scraper')))
     discord_id = models.CharField(blank=True, null=True, max_length=100)
-    projects = models.ManyToManyField(Project, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} profile'
 
 
-# Модель сертифікату
 class Certificate(models.Model):
     number = models.CharField(unique=True, null=True, max_length=128)
     user = models.ForeignKey(User, verbose_name="Власник сертифікату", on_delete=models.CASCADE,
                              related_name="certificate_owner")
 
 
-# Модель задачі
 class Task(models.Model):
     title = models.CharField("Тема завдання", max_length=126)
     description = models.TextField("Завдання")
@@ -67,7 +66,6 @@ class Task(models.Model):
     priority = models.CharField("Приорітет задачі", max_length=6, choices=TASK_PRIORITY)
 
 
-# Модель подій в CRM
 class Event(models.Model):
     event_type = models.CharField("Тип події", null=True, max_length=16, choices=EVENT_TYPES)
     description = models.TextField("Опис події")
@@ -75,7 +73,6 @@ class Event(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
 
-# Модель призначення задач
 class Assignment(models.Model):
     task = models.ForeignKey(Task, verbose_name="Задача", on_delete=models.CASCADE)
     executor = models.ForeignKey(User, verbose_name="Виконавець", on_delete=models.CASCADE)

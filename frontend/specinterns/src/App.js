@@ -6,6 +6,8 @@ import { useContext, useEffect } from 'react';
 import { Context } from '.';
 import { observer } from 'mobx-react-lite'
 import LoginPage from './pages/LoginPage';
+import WorkshopPage from './pages/WorkshopPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
@@ -28,6 +30,11 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />}></Route>
         <Route path="workshop/login" element={<LoginPage />}></Route>
+        <Route path='workshop/home' element={
+          <ProtectedRoute isLoginned={store.isAuth}>
+            <WorkshopPage></WorkshopPage>
+          </ProtectedRoute>
+        }></Route>
       </Routes>
     </div>
     </BrowserRouter>

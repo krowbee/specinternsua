@@ -1,12 +1,11 @@
 from django.urls import path, include
-from .views import ProjectViewSet, TaskViewSet, EventViewSet
 from rest_framework.routers import DefaultRouter
+from .views import UserProjectViewSet
 
 router = DefaultRouter()
-router.register(r'projects', ProjectViewSet)
-router.register(r'tasks', TaskViewSet)
-router.register(r'events', EventViewSet)
+router.register('user-projects', UserProjectViewSet, basename='user-projects')
+
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls))
 ]

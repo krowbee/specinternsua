@@ -65,10 +65,11 @@ export class Store{
         try{
             const response = await axios.post(`${API_URL}/auth/token_refresh/`, 
                 {withCredentials: true})
+            localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true);
             this.setUser(response.data.user);
         }catch(e){
-            console.log(e.response.data.message);
+            this.setAuth(false)
         }
         finally{
             this.setLoading(false);
