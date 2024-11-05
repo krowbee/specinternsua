@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from crm.serializers import UserSerializer
 
 
 class RegisterView(APIView):
@@ -55,8 +56,8 @@ class LoginView(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
             refresh_token = str(refresh)
-
-            response = Response({'accessToken': access_token})
+            user_serializer = UserSerializer(user)
+            response = Response({'accessToken': access_token, 'user': user_serializer.data})
             response.set_cookie(
                 key='refreshToken',
                 value=refresh_token,
@@ -85,14 +86,12 @@ class TokenRefreshView(APIView):
 
     def post(self, request):
         refresh_token = request.COOKIES.get('refreshToken')
-
         if not refresh_token:
             return Response({"error": "Refresh token is missing"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             refresh = RefreshToken(refresh_token)
             access_token = str(refresh.access_token)
-            print(access_token)
 
             return Response({'accessToken': access_token})
         except Exception as e:

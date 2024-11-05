@@ -16,6 +16,9 @@ EVENT_TYPES = (("Meeting", "Зустріч"),
                ("Code Review", "Код рев'ю"),
                ("Progress Update", "Оновлення прогресу"))
 
+ROLES = (('admin', 'Адміністратор'),
+         ('user', 'Користувач'))
+
 
 class Project(models.Model):
     title = models.CharField("Назва проєкту", max_length=256)
@@ -44,6 +47,7 @@ class Profile(models.Model):
                                                               ('DESIGNER', 'Designer'),
                                                               ('DATA SCRAPER', 'Data Scraper')))
     discord_id = models.CharField(blank=True, null=True, max_length=100)
+    role = models.CharField(default='user', choices=ROLES, max_length=10)
 
     def __str__(self):
         return f'{self.user.username} profile'
@@ -70,7 +74,7 @@ class Event(models.Model):
     event_type = models.CharField("Тип події", null=True, max_length=16, choices=EVENT_TYPES)
     description = models.TextField("Опис події")
     date_time = models.DateTimeField("Дата та час події", null=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='events')
 
 
 class Assignment(models.Model):

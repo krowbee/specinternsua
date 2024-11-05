@@ -1,4 +1,4 @@
-from rest_framework_roles.roles import is_admin, is_anon, is_user
+from rest_framework_roles.roles import is_anon, is_user
 from crm.models import Project
 
 
@@ -9,6 +9,10 @@ def is_team_lead(request, view):
         return request.user == project.task_asignee
     except Project.DoesNotExist:
         return False
+
+
+def is_admin(request, view):
+    return request.user.profile.role == 'admin'
 
 
 ROLES = {

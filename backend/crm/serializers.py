@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from crm.models import Event, Project, Profile, Task
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['full_name', 'linkedin', 'specialization', 'discord_id',]
+        fields = ['full_name', 'linkedin', 'specialization', 'discord_id', 'role']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -65,16 +66,38 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     assigned_to = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    project = serializers.SerializerMethodField()
+    due_date = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
         fields = ['title', 'description', 'assigned_to', 'project', 'due_date', 'status', 'priority']
 
+    def get_project(self, obj):
+        return {
+            'id': obj.project.id,
+            'title': obj.project.title
+                }
+
+    def get_due_date(self, obj):
+
+        return obj.due_date.strftime('%d-%m-%Y')
+
 
 class EventSerializer(serializers.ModelSerializer):
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
-
+    project = serializers.SerializerMethodField()
+    date_time = serializers.SerializerMethodField()
+    
     class Meta:
         model = Event
         fields = ['event_type', 'description', 'date_time', 'project']
+
+    def get_project(self, obj):
+        return {
+            'id': obj.project.id,
+            'title': obj.project.title
+            }
+    
+    def get_date_time(self, obj):
+
+        return obj.date_time.astimezone(timezone.get_current_timezone()).strftime('%d-%m-%Y %H:%M')

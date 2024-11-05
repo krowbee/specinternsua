@@ -1,6 +1,7 @@
 
 export default class Project{
-    constructor(title, description, status, startDate, duration, members, preview, project_link){
+    constructor(id, title, description, status, startDate, duration, members, preview, project_link){
+        this.id = id;
         this.title = title;
         this.status = status;
         this.startDate = startDate;
